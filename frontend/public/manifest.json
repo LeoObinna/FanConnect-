@@ -1,0 +1,88 @@
+{
+  "short_name": "FanConnect",
+  "name": "FanConnect - Creator Platform",
+  "description": "Connect with your favorite creators through live streaming, subscriptions, and exclusive content",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "logo192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "logo512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#00d6f4",
+  "background_color": "#ffffff",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "categories": ["entertainment", "social", "lifestyle"],
+  "screenshots": [
+    {
+      "src": "screenshots/desktop.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "FanConnect desktop view showing creator dashboard"
+    },
+    {
+      "src": "screenshots/mobile.png",
+      "sizes": "375x812",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "FanConnect mobile view showing live stream"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Go Live",
+      "short_name": "Live",
+      "description": "Start a live stream",
+      "url": "/dashboard?action=live",
+      "icons": [
+        {
+          "src": "icons/live.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Feed",
+      "short_name": "Feed",
+      "description": "View creator feed",
+      "url": "/feed",
+      "icons": [
+        {
+          "src": "icons/feed.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "short_name": "Dashboard",
+      "description": "Creator dashboard",
+      "url": "/dashboard",
+      "icons": [
+        {
+          "src": "icons/dashboard.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "iarc_rating_id": "e58a13c6-3c4a-4b01-8a33-9c3c7b1a2d5a"
+}
