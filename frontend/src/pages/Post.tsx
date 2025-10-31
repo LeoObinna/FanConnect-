@@ -3,6 +3,10 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import VideoPlayer from '../components/VideoPlayer';
 
+/**
+ * Post page component
+ */
+
 export default function Post() {
  const { id } = useParams();
  const [post, setPost] = useState<any>(null);
