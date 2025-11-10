@@ -4,40 +4,327 @@
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
+    <meta name="theme-color" content="#00d6f4" />
     <meta
       name="description"
-      content="Web site created using create-react-app"
+      content="FanConnect - Connect with your favorite creators through live streaming, subscriptions, and exclusive content."
     />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+    <meta name="keywords" content="fanconnect, creators, live streaming, subscriptions, tips, content, onlyfans alternative" />
+    <meta name="author" content="FanConnect" />
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="FanConnect - Creator Platform" />
+    <meta property="og:description" content="Connect with your favorite creators through live streaming and exclusive content" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="%PUBLIC_URL%/logo192.png" />
+    <meta property="og:url" content="https://fanconnect.app" />
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="FanConnect - Creator Platform" />
+    <meta name="twitter:description" content="Connect with your favorite creators through live streaming and exclusive content" />
+    <meta name="twitter:image" content="%PUBLIC_URL%/logo192.png" />
+    <meta name="twitter:site" content="@fanconnect" />
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
+    <!-- Preconnect to important domains for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://js.stripe.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://video.stream-io-api.com">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    
+    <title>FanConnect - Connect with Creators | Live Streaming & Exclusive Content</title>
+
+    <style>
+      /* Loading screen styles */
+      #loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        color: white;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        transition: opacity 0.5s ease-out;
+      }
+      
+      .loading-logo {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: white;
+      }
+      
+      .loading-spinner {
+        width: 50px;
+        height: 50px;
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        border-top: 4px solid white;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-bottom: 20px;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
+      .loading-text {
+        font-size: 1.1rem;
+        font-weight: 500;
+        opacity: 0.9;
+      }
+      
+      .loading-subtext {
+        font-size: 0.9rem;
+        opacity: 0.7;
+        margin-top: 0.5rem;
+      }
+      
+      /* Hide loading screen when app loads */
+      .app-loaded #loading-screen {
+        opacity: 0;
+        pointer-events: none;
+      }
+      
+      /* Basic reset and font setup */
+      body {
+        margin: 0;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+          'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+          sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        background-color: #ffffff;
+        color: #1a1a1a;
+        line-height: 1.6;
+      }
+      
+      /* Scrollbar styling */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      
+      ::-webkit-scrollbar-thumb {
+        background: #c1c1c1;
+        border-radius: 4px;
+      }
+      
+      ::-webkit-scrollbar-thumb:hover {
+        background: #a8a8a8;
+      }
+      
+      code {
+        font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+          monospace;
+      }
+      
+      * {
+        box-sizing: border-box;
+      }
+      
+      /* Focus styles for accessibility */
+      button:focus-visible,
+      input:focus-visible,
+      textarea:focus-visible,
+      select:focus-visible {
+        outline: 2px solid #00d6f4;
+        outline-offset: 2px;
+      }
+      
+      /* Selection color */
+      ::selection {
+        background-color: #00d6f4;
+        color: white;
+      }
+      
+      /* No script fallback styling */
+      .no-script-fallback {
+        text-align: center;
+        padding: 2rem;
+        font-family: 'Inter', sans-serif;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      
+      .no-script-fallback h1 {
+        color: #00d6f4;
+        margin-bottom: 1rem;
+      }
+      
+      .no-script-fallback p {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+      }
+    </style>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+      <div class="loading-logo">FanConnect</div>
+      <div class="loading-spinner"></div>
+      <div class="loading-text">Loading your creator experience...</div>
+      <div class="loading-subtext">Securely connecting to our platform</div>
+    </div>
+
+    <!-- Enhanced No Script Fallback -->
+    <noscript>
+      <div class="no-script-fallback">
+        <h1>FanConnect</h1>
+        <p><strong>JavaScript is required to run FanConnect.</strong></p>
+        <p>Please enable JavaScript in your browser settings to access our platform and connect with creators.</p>
+        <p>If you need assistance, please check your browser's help documentation or contact support.</p>
+        <div style="margin-top: 2rem; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
+          <p style="font-size: 0.9rem; color: #666;">
+            FanConnect uses modern web technologies to provide a secure and seamless experience for creators and fans.
+          </p>
+        </div>
+      </div>
+    </noscript>
+
+    <!-- React App Root -->
     <div id="root"></div>
+
+    <script>
+      // Enhanced loading screen management
+      (function() {
+        'use strict';
+        
+        // Remove loading screen when React app loads
+        function hideLoadingScreen() {
+          document.body.classList.add('app-loaded');
+          // Remove from DOM after fade out
+          setTimeout(function() {
+            const loadingScreen = document.getElementById('loading-screen');
+            if (loadingScreen && loadingScreen.parentNode) {
+              loadingScreen.parentNode.removeChild(loadingScreen);
+            }
+          }, 500);
+        }
+        
+        // Try to detect when React has mounted
+        let appLoaded = false;
+        
+        // Method 1: Check for root element content changes
+        const rootElement = document.getElementById('root');
+        if (rootElement) {
+          const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+              if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+                if (!appLoaded) {
+                  appLoaded = true;
+                  setTimeout(hideLoadingScreen, 1000);
+                }
+                observer.disconnect();
+              }
+            });
+          });
+          
+          observer.observe(rootElement, {
+            childList: true,
+            subtree: true
+          });
+        }
+        
+        // Method 2: Fallback - hide after 5 seconds max
+        setTimeout(function() {
+          if (!appLoaded) {
+            console.warn('Fallback: Hiding loading screen after timeout');
+            hideLoadingScreen();
+          }
+        }, 5000);
+        
+        // Service Worker Registration for PWA
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', function() {
+            // Register service worker in production (check via hostname)
+            const isProduction = !window.location.hostname.includes('localhost') && 
+                                !window.location.hostname.includes('127.0.0.1');
+            
+            if (isProduction) {
+              navigator.serviceWorker.register('/sw.js')
+                .then(function(registration) {
+                  console.log('FanConnect SW registered successfully: ', registration.scope);
+                })
+                .catch(function(registrationError) {
+                  console.log('FanConnect SW registration failed: ', registrationError);
+                });
+            }
+          });
+        }
+        
+        // Performance monitoring
+        window.addEventListener('load', function() {
+          // Report load time to analytics if available
+          if (window.performance && window.performance.timing) {
+            const loadTime = window.performance.timing.loadEventEnd - window.performance.timing.navigationStart;
+            console.log('FanConnect page load time: ' + loadTime + 'ms');
+            
+            // You can send this to your analytics service
+            // analytics.track('page_load', { load_time: loadTime });
+          }
+        });
+        
+        // Error boundary for unhandled errors
+        window.addEventListener('error', function(e) {
+          console.error('FanConnect global error:', e.error);
+          // You can send this to error tracking service
+          // errorTracking.captureException(e.error);
+        });
+        
+        // Unhandled promise rejections
+        window.addEventListener('unhandledrejection', function(e) {
+          console.error('FanConnect unhandled promise rejection:', e.reason);
+          // You can send this to error tracking service
+          // errorTracking.captureException(e.reason);
+        });
+        
+      })();
+      
+      // Environment check - Fixed: removed process.env reference
+      (function() {
+        const isLocalhost = window.location.hostname === 'localhost' || 
+                           window.location.hostname === '127.0.0.1' ||
+                           window.location.hostname === '';
+        const environment = isLocalhost ? 'development' : 'production';
+        
+        console.log(`
+  🚀 FanConnect Platform
+  🌐 Environment: ${environment}
+  📱 User Agent: ${navigator.userAgent}
+  💻 Online: ${navigator.onLine}
+  📦 Storage: ${typeof(Storage) !== "undefined" ? "Supported" : "Not Supported"}
+  🏠 Hostname: ${window.location.hostname}
+        `);
+      })();
+    </script>
+    
+    <!-- Optional: Analytics Script (uncomment and add your tracking ID) -->
     <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'GA_TRACKING_ID');
+    </script>
     -->
   </body>
 </html>
